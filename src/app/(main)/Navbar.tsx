@@ -20,6 +20,7 @@ export default function Navbar() {
     { href: "/resumes", label: "Resume Builder" },
     { href: "/chat", label: "Document Chat" },
     { href: "/interview", label: "Mock Interview" },
+    { href: "/coach", label: "AI Coach" }
   ];
 
   return (

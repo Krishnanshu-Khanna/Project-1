@@ -31,6 +31,7 @@ model Resume {
   educations      Education[]
   projects        Project[]
   workExperiences WorkExperience[]
+  localizations   ResumeLocalized[]
 
   @@map("resumes")
 }
@@ -172,4 +173,27 @@ enum Difficulty {
   EASY
   MEDIUM
   HARD
+}
+
+
+model TranslationCache {
+  id        String   @id @default(cuid())
+  srcHash   String   @unique
+  srcLang   String
+  tgtLang   String
+  output    String
+  createdAt DateTime @default(now())
+}
+
+
+model ResumeLocalized {
+  id        String   @id @default(cuid())
+  resumeId  String
+  locale    String
+  payload   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  @@unique([resumeId, locale])
 }
